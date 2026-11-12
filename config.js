@@ -1,10 +1,10 @@
-/* MyFinance configuration
- * ห้ามใส่ API Token, รหัสผ่าน หรือ Secret ลงในไฟล์นี้
- * การเชื่อมต่อ Google Sheets จะตั้งค่าในขั้นตอน Backend ที่ปลอดภัยภายหลัง
+/* MyFinance public configuration
+ * Do not put API tokens or secrets in this file.
  */
 window.MYFINANCE_CONFIG = {
   appName: "MyFinance",
   currency: "THB",
   storageKey: "myfinance_local_v1",
-  backendConnected: false
+  apiUrl: "https://myfinance-api.nong-acxi178.workers.dev",
+  backendConnected: true
 };
