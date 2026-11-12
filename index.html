@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#6d28d9">
+  <meta name="description" content="MyFinance personal finance dashboard">
+  <title>MyFinance</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">M</span><span>MyFinance</span></div>
+      <nav id="sideNav">
+        <button class="nav-link active" data-page="dashboard">▦ <span>ภาพรวม</span></button>
+        <button class="nav-link" data-page="transactions">↕ <span>ธุรกรรม</span></button>
+        <button class="nav-link" data-page="budgets">▤ <span>งบประมาณ</span></button>
+        <button class="nav-link" data-page="goals">◎ <span>เป้าหมายออมเงิน</span></button>
+        <button class="nav-link" data-page="bills">♧ <span>หารบิลกับเพื่อน</span></button>
+      </nav>
+      <div class="sidebar-bottom"><span class="status-dot"></span> บันทึกในอุปกรณ์นี้</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-brand" id="menuButton" aria-label="เมนู">☰</button>
+        <div><div class="eyebrow">PERSONAL FINANCE</div><h1 id="pageTitle">ภาพรวม</h1></div>
+        <button class="theme-button" id="themeButton" aria-label="สลับธีม">☾</button>
+      </header>
+
+      <section class="page active" id="page-dashboard">
+        <div class="welcome-row">
+          <div><h2>สวัสดี 👋</h2><p class="muted">มาดูสถานะการเงินของคุณกัน</p></div>
+          <button class="primary-button" data-open-add>＋ เพิ่มรายการ</button>
+        </div>
+        <div class="stats-grid">
+          <article class="stat-card balance-card"><div class="stat-label">ยอดคงเหลือรวม</div><div class="stat-value" id="balanceValue">฿0.00</div><div class="stat-foot">จากรายการที่บันทึกไว้</div></article>
+          <article class="stat-card"><div class="stat-label">รายรับเดือนนี้</div><div class="stat-value positive" id="incomeValue">฿0.00</div><div class="stat-foot">เงินที่ได้รับ</div></article>
+          <article class="stat-card"><div class="stat-label">รายจ่ายเดือนนี้</div><div class="stat-value negative" id="expenseValue">฿0.00</div><div class="stat-foot">เงินที่ใช้ไป</div></article>
+        </div>
+        <div class="content-grid">
+          <article class="panel">
+            <div class="panel-heading"><div><h3>รายรับและรายจ่าย</h3><p class="muted">ภาพรวมของเดือนนี้</p></div><span class="tag">เดือนปัจจุบัน</span></div>
+            <div class="chart-wrap"><div class="chart-bars"><div class="bar-group"><div class="bar income-bar" id="incomeBar"></div><span>รายรับ</span></div><div class="bar-group"><div class="bar expense-bar" id="expenseBar"></div><span>รายจ่าย</span></div></div></div>
+          </article>
+          <article class="panel">
+            <div class="panel-heading"><div><h3>สรุปตามหมวดหมู่</h3><p class="muted">รายจ่ายเดือนนี้</p></div></div>
+            <div id="categorySummary" class="category-summary"><p class="empty-state">ยังไม่มีข้อมูลรายจ่าย</p></div>
+          </article>
+        </div>
+        <article class="panel recent-panel">
+          <div class="panel-heading"><div><h3>รายการล่าสุด</h3><p class="muted">ธุรกรรมที่คุณบันทึก</p></div><button class="text-button" data-go="transactions">ดูทั้งหมด →</button></div>
+          <div id="recentTransactions"></div>
+        </article>
+      </section>
+
+      <section class="page" id="page-transactions">
+        <div class="section-toolbar"><div><h2>ธุรกรรม</h2><p class="muted">จัดการรายรับและรายจ่ายทั้งหมด</p></div><button class="primary-button" data-open-add>＋ เพิ่มรายการ</button></div>
+        <input class="search-input" id="searchInput" placeholder="ค้นหาหมวดหมู่หรือหมายเหตุ...">
+        <div id="allTransactions"></div>
+      </section>
+
+      <section class="page" id="page-budgets">
+        <div class="section-toolbar"><div><h2>งบประมาณ</h2><p class="muted">ตั้งวงเงินรายจ่ายรายเดือน</p></div><button class="primary-button" id="addBudgetButton">＋ เพิ่มงบ</button></div>
+        <div id="budgetList" class="stack-list"></div>
+      </section>
+
+      <section class="page" id="page-goals">
+        <div class="section-toolbar"><div><h2>เป้าหมายออมเงิน</h2><p class="muted">ค่อย ๆ เก็บให้ถึงเป้าหมาย</p></div><button class="primary-button" id="addGoalButton">＋ เพิ่มเป้าหมาย</button></div>
+        <div id="goalList" class="goal-grid"></div>
+      </section>
+
+      <section class="page" id="page-bills">
+        <div class="section-toolbar"><div><h2>หารบิลกับเพื่อน</h2><p class="muted">บันทึกบิลและติดตามยอดที่แต่ละคนจ่าย</p></div><button class="primary-button" id="addBillButton">＋ สร้างบิล</button></div>
+        <div class="notice">เวอร์ชันเริ่มต้นรองรับการบันทึกบิลพื้นฐาน ส่วนการแยกรายการและชำระบางส่วนจะเพิ่มในขั้นตอนถัดไป</div>
+        <div id="billList" class="stack-list"></div>
+      </section>
+
+      <footer>MyFinance <span>•</span> ข้อมูลเวอร์ชันเริ่มต้นเก็บในอุปกรณ์นี้</footer>
+    </main>
+  </div>
+
+  <dialog id="transactionDialog" class="modal">
+    <form id="transactionForm" method="dialog">
+      <div class="modal-heading"><div><h2>เพิ่มธุรกรรม</h2><p class="muted">กรอกรายละเอียดรายการของคุณ</p></div><button type="button" class="close-button" data-close>×</button></div>
+      <label>ประเภทรายการ</label><div class="segmented"><label><input type="radio" name="type" value="income" checked><span>รายรับ</span></label><label><input type="radio" name="type" value="expense"><span>รายจ่าย</span></label></div>
+      <label for="amount">จำนวนเงิน (บาท)</label><input id="amount" name="amount" type="number" min="0.01" step="0.01" placeholder="0.00" required>
+      <label for="category">หมวดหมู่</label><select id="category" name="category"><option>อาหาร</option><option>เดินทาง</option><option>ช้อปปิ้ง</option><option>บิล/ค่าสาธารณูปโภค</option><option>เงินเดือน</option><option>งานเสริม</option><option>อื่น ๆ</option></select>
+      <label for="date">วันที่</label><input id="date" name="date" type="date" required>
+      <label for="note">หมายเหตุ</label><input id="note" name="note" placeholder="รายละเอียดเพิ่มเติม (ไม่บังคับ)">
+      <div class="modal-actions"><button type="button" class="secondary-button" data-close>ยกเลิก</button><button class="primary-button" type="submit">บันทึกรายการ</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="simpleDialog" class="modal">
+    <form id="simpleForm" method="dialog">
+      <div class="modal-heading"><h2 id="simpleTitle">เพิ่มข้อมูล</h2><button type="button" class="close-button" data-close>×</button></div>
+      <div id="simpleFields"></div>
+      <div class="modal-actions"><button type="button" class="secondary-button" data-close>ยกเลิก</button><button class="primary-button" type="submit">บันทึก</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

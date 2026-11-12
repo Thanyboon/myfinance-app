@@ -1,0 +1,10 @@
+{
+  "name": "MyFinance",
+  "short_name": "MyFinance",
+  "description": "Personal finance management",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f7f5fc",
+  "theme_color": "#6d28d9",
+  "icons": []
+}
